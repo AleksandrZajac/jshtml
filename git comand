@@ -1,0 +1,138 @@
+cd ~
+pwd
+ls
+git config user.name "Aleksandr Zajac"
+git config user.email "mr.goodaleks@gmail.com"
+//посмотреть настройки пользователя
+git config --list
+//
+cat ~/.gitconfig
+//инициализируем репозиторий
+git init
+//показать все файлы в том числе скрытые
+ls -1 -a
+//в каком состоянии репозиторий
+git status
+//индексация
+git add .
+//коммит
+git commit -m "начали вести историю"
+//показывает разницу модификацию файла не проиндексированные
+git diff
+//показывает разницу модификацию файла проиндексированные
+git diff --staged
+//история коммитов листать коммиты можно стрелочками вверх и вниз
+//закрываем лог клавишей q
+git log
+//показываем лог одной строкой
+git log --oneline
+//показываем лог одной строкой всего
+git log --oneline --all
+//показываем лог одной строкой всего графически
+git log --oneline --all --graph
+//последняя цмфра 2920030 хэш коммита из команды git log --oneline
+git cat-file -p 2920030
+//переключаюсь на коммит по кэшу ad32377
+git checkout ad32377
+//ветка cooments указывает на origin/comments
+git checkout -b coments origin/comments
+--------------------------------------------------------------------------------
+//Связываем локальную ветку с удаленной
+git branch --set-upstream-to=origin/comments
+тогда  в ветке comments будет достаточно писать git push и git pull
+//какие ветки связаны друг с другом
+git branch -vv
+--------------------------------------------------------------------------------
+//удалить файл
+git rm fileName
+--------------------------------------------------------------------------------
+//добавляет удаленный репозиторий в github
+git remote add origin git@github.com:AleksandrZajac/jshtml.git
+
+//проверка добавился ли удаленный репозиторий
+//Забрать изменения fetch Отправлять изменения push
+git remote -v
+--------------------------------------------------------------------------------
+//Генерируем ssh
+//Создаем папку
+mkdir ~/.ssh
+//Заходим в нее
+cd ~/.ssh
+//генерируем ключ
+ssh-keygen -t rsa -b 4096 -C "mr.goodalex@gmail.com"
+Пишем в эту строку название файла github-2020-09-15
+Enter file in which to save the key (/c/Users/31337/.ssh/id_rsa):github-2020-09-15
+//достаем содержимое приватного ключа и копируем его в гитхаб
+cat github-2020-09-15.pub
+заxодим в гитхабе в setting > SSH and GPG keys > New SSH key
+//Заходим в вим config
+vim ~/.ssh/config
+//и пишем там
+Host github.com
+	IdentityFile ~/.ssh/github-2020-09-15
+	 Hostname ssh.github.com
+	 Port 443
+   и сейвим Esc :wq Enter
+//Проверка аутентификации мы должны находиться в папке с проектом а не ~/.ssh
+ssh -T -i ~/.ssh/github-2020-09-15 git@github.com
+//команда отправляет проект в удаленный репоситорий в мастер
+git push -u origin master
+git push origin master
+//исправляем название ветки удаленного репозитория и там стираем ветку cmments
+git push origin cmments:comments
+//удаляем ветку в удаленном репозитории cmments
+git push origin :cmments
+//команда отправляет проект в удаленный репозиторий в новую ветку cmments
+git push origin cmments
+//Создает новую ветку в локале
+git checkout -b cmments
+//Переименовывает ветку в локале
+git branch -m comments
+//получаем master из удаленного репозитория
+git pull origin master
+//Забирает изменения из удаленного репозитория
+git fetch origin
+//клонирование репозитория
+git clone git@github.com:AleksandrZajac/jshtml.git
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+//забрать чужой код в свой репозиторий
+//форкаем чужой проект и клонируем его git clone
+//проверка добавился ли удаленный репозиторий
+//Забрать изменения fetch Отправлять изменения push
+git remote -v
+//Делаем изменения и пушим на гитхаб
+git push -u origin master
+//затем в гитхабе делаем Compair и Create pull request Create pull request
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+//создаем указатель ветки two-commit
+git checkout -b two-commit 2920030
+//переключаемся на ветку master или
+git checkout master git checkout two-commit
+
+//merge слияние master и two-commit
+git merge two-commit -m 'Merge two commit and master'
+
+//git show и кэш коммита изменение коммита
+git show b751413dad8049db768d116d817a20b64b8a9a7d
+//откатить изменения файла
+git checkout fileName
+//откатить изменения всего документа
+git checkout add .
+//коммит из которого хотим взять состояние файлa fileName
+git checkout b751413dad8049db768d116d817a20b64b8a9a7d fileName
+//отменить индексацию которую не хотим включать в коммит
+git reset HEAD fileName
+//показывает последний коммит
+git log -1
+//исправленное сообщение последнего коммита
+git commit --amend -m 'исправленное сообщение последнего коммита'
+--------------------------------------------------------------------------
+//удалить файл из коммита не удаляя файл из проекта
+git rm --cached fileName
+//последнего коммита
+git commit --amend --no-edit
+--------------------------------------------------------------------------
+//справка
+git help commandName
