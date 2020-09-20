@@ -157,6 +157,7 @@ git branch -m старое-имя-ветки новое-имя-ветки.
  то есть ваш форк
 
  //merge слияние master и two-commit
+ //коммит из master
 git merge two-commit -m 'Merge two commit and master'
 
 git log --oneline --all --graph
